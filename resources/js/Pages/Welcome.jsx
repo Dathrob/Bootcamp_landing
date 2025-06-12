@@ -2,7 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import { Globe } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 import { ArrowRight, User, Clock, Code, Users, GitMerge, Database, Cloud } from 'lucide-react';
-
+import { Menu, X } from "lucide-react";
 
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
@@ -48,6 +48,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
       const [centerIndex, setCenterIndex] = useState(0);
         const containerRef = useRef();
+        const [menuOpen, setMenuOpen] = useState(false);
 
         // Automatically rotate center every 3 seconds
         useEffect(() => {
@@ -93,41 +94,63 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         
           const courses = [
             {
-              name: 'Introduction to AI',
+              name: 'Data Science and AI',
               students: 235,
-              duration: '6 weeks',
+              duration: '6 months',
+              description: 'Master the fundamentals of data analytics, machine learning, and AI-driven insights.',
               image: 'https://img.freepik.com/free-photo/artificial-intelligence-technology-background_53876-124590.jpg',
             },
             {
-              name: 'Web Development',
+              name: 'Full Stack Software Development',
               students: 420,
-              duration: '3 months',
+              duration: '5 months',
+              description: 'Become a versatile developer by mastering both frontend and backend technologies.',
               image: 'https://img.freepik.com/free-photo/front-end-development-programming-code_53876-138264.jpg',
             },
             {
-              name: 'Mobile App Development',
-              students: 310,
-              duration: '4 months',
-              image: 'https://img.freepik.com/free-photo/mobile-app-development-coding-technology_53876-138254.jpg',
+              name: 'Machine Learning',
+              students: 120,
+              duration: '10 weeks',
+              description: 'Train models, work with datasets, and gain hands-on machine learning experience.',
+              image: 'https://img.freepik.com/free-photo/artificial-intelligence-machine-learning-concept_53876-143123.jpg',
             },
             {
-              name: 'Full-Stack JavaScript',
-              students: 198,
-              duration: '3 months',
-              image: 'https://img.freepik.com/free-photo/coding-programming-javascript_53876-138286.jpg',
-            },
-            {
-              name: 'Data Science Basics',
-              students: 150,
+              name: 'Python Programming',
+              students: 280,
               duration: '2 months',
-              image: 'https://img.freepik.com/free-photo/data-science-analytics_53876-143113.jpg',
+              description: 'Master one of the most popular and versatile programming languages from scratch.',
+              image: 'https://img.freepik.com/free-photo/python-programming-concept_53876-125177.jpg',
             },
             {
-              name: 'Cloud Computing Fundamentals',
+              name: 'Coding for Kids and Teens',
+              students: 310,
+              duration: '8 weeks',
+              description: 'Fun and interactive introduction to coding for younger learners.',
+              image: 'https://lh3.googleusercontent.com/fife/ALs6j_FbwpsDNSFg2c5lNqur0q0KcRstNeBQAh2kU1Kp5_D2wPB7GG_KO5f3V03B4gO2t_HC1rIs6LXjNgKzjyGFEZ-4116oziVuv0Qouhc60A5rJc4bv60opElR3NArO7sWoV-WYmG8-U_dpTNb6u7MzCr_T6fg9IcenqxR1YcgkQs0faPkblCLRZsYBVGWcZvGWRHx4PAT6c8VSlSeK-q-K7_kBLZ-Z05u7-FYVJETvmMrjRQxSZT4sX7anuDw0Fr6WHyJMJmPlsj4bxzKHERiB8tyYrHXi89jAc3ejYah-5SrY6PIC0B2OR5ujagFItzbe2LerpNY6cgusqv1eS1S6kCLolnvo--dmUUspqsRReC3GEWNA1RHj18roQ4vNgoyu-tZ0BXWHGXrPUDCGmwoiCsVu9TORxLP0XXvSEUhEVxxeig1-fZy44LdMEmq1qUQ9uluoKwcRQzXlMTLRyzG9uPttdmMEtcuWzR9tRGW8xGbCvJNRD8cgr5ZIXffPOdxiRBUfvvs905FlG1RZ8wIr_XxULhTyuLZpKnoY24utCoqcGk9CWDOPBIoMyXewrvy8j3D2Xh-NLrinEv029zGKGpGtQI6lUQay7rDe1QnNxxoNaW-QPYR8WZgOREMjyl6FVweBaOCzkMUFrX_mCTgbfK4bq6pp_jggTGgZfKaYmjKW7YxIt6YnYMBwX4B5PapI0xsB-DSqxKzamf6Bi4V9ZaNJKlz2qD0dc07D2mtwZOylgeDcVT26xx94qeLh9FQetCaeoRduFG33sVVtSUjXZAUg43PnYqHkyu4vUCYvlO35Y9CO142jBtgt3WgQxldkGsy9tfGwet-DCtkL6TNEBLYSQfS-qccsuxg4fy01HN4AqPMTb3pCQuC4ZlNXEXrPbEz05l8e9JQqECQl3-tZoT8tAN0lRndKJCg-MYA0wHUT3OsaxEvHtKa7UWWgF6HsNLwm6aNXuXlWBAm_wvoVUv43XgmTjLnrhV3WPlNaxM2RvXLrQW6UxVVNfKylptDeq9uV1fmVhZEXdOg3CAsVSBkdN51rMjuYYUg4kVJW4xbrOCxAO62ofCvTj5hj5sn_M36uDOOrm_2SA26XdxYExC_Npm3G16veAEPezTurohvu-Pjx7ElO4-w9DGnZYwOV2AA-W9n6lSz0gFHvBBYpG6k72JlGqqLru4_HSCaQxMaXf-ujl9xO4FIkuWaVUSJnzEEJOGrZ-n-XJfwgwsrTmFc7IXwbMawtpHjZToC14C28YDnnaCR73QmCvU3Kv3p7QvqW5fM4LGJaGkw9tiVkzaZgGTp180P59G9bCfLn_XKHa0y6kUBUbOxlLETRrhYYzHPFpRm4XlSNb_nPePSdqIOPN-v5ImCJtJfqeArNY44PDk4N9U=s1024',
+            },
+            // {
+            //   name: 'Frontend Development',
+            //   students: 198,
+            //   duration: '3 months',
+            //   description: 'Learn HTML, CSS, JavaScript, and modern frontend frameworks to build stunning websites.',
+            //   image: 'https://img.freepik.com/free-photo/coding-programming-javascript_53876-138286.jpg',
+            // },
+            // {
+            //   name: 'Backend Development and APIs',
+            //   students: 150,
+            //   duration: '3 months',
+            //   description: 'Build robust server-side apps, design RESTful APIs, and work with databases.',
+            //   image: 'https://img.freepik.com/free-photo/data-science-analytics_53876-143113.jpg',
+            // },
+            {
+              name: 'Programming Fundamentals',
               students: 175,
-              duration: '2.5 months',
+              duration: '6 weeks',
+              description: 'Start from zero and learn the core concepts of programming logic and problem-solving.',
               image: 'https://img.freepik.com/free-photo/cloud-computing-technology-concept_53876-138257.jpg',
             },
+            
+          
           ];
   
       
@@ -137,61 +160,94 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <Head title="Welcome to Bootcamp Platform" />
             <div className="min-h-screen bg-white">
             <header className="w-full bg-white shadow-md z-30 fixed top-0 left-0">
-  <div className="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
-    {/* Logo / Brand */}
-    <div className="text-3xl font-extrabold text-indigo-700 tracking-wide">
-      <a href="/">DevLaunch</a>
-    </div>
+              <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <div className="text-3xl font-extrabold text-indigo-700 tracking-wide">
+            <a href="/">Cyber Tech</a>
+          </div>
 
-    {/* Main Menu */}
-    <nav className="hidden md:flex gap-10 text-lg font-semibold text-gray-800">
-      <a href="/" className="hover:text-indigo-600 transition">Home</a>
-      <a href="#courses" className="hover:text-indigo-600 transition">Courses</a>
-      <a href="#partners" className="hover:text-indigo-600 transition">Partners</a>
-      {/* <a href="/login" className="hover:text-indigo-600 transition">Login</a> */}
-    </nav>
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex gap-8 text-lg font-semibold text-gray-800">
+            <a href="/" className="hover:text-indigo-600 transition">Home</a>
+            <a href="#courses" className="hover:text-indigo-600 transition">Courses</a>
+            <a href="#partners" className="hover:text-indigo-600 transition">Partners</a>
+            <a href="#faq" className="hover:text-indigo-600 transition">FAQs</a>
+            <a href="#contact" className="hover:text-indigo-600 transition">Contact Us</a>
+            <a href="/login" className="hover:text-indigo-600 transition">Login</a>
+          </nav>
 
-    {/* Join Now Button */}
-    <div className="hidden md:block">
-      <a
-        href="/register"
-        className="bg-indigo-700 text-white px-6 py-3 text-lg rounded-xl font-bold hover:bg-indigo-800 transition"
-      >
-        Join Now
-      </a>
-    </div>
-  </div>
-</header>
+          {/* Join Now button (Desktop only) */}
+          <div className="hidden md:block">
+            <a
+              href="/register"
+              className="bg-indigo-700 text-white px-5 py-2 text-lg rounded-xl font-bold hover:bg-indigo-800 transition"
+            >
+            Apply Now
+            </a>
+          </div>
+
+          {/* Hamburger Icon (Mobile only) */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden text-gray-800"
+          >
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+              </div>
+
+              {/* Mobile Menu */}
+              {menuOpen && (
+                <div className="md:hidden px-6 pb-4 text-gray-800 space-y-4 text-lg font-semibold">
+                  <a href="/" className="block hover:text-indigo-600">Home</a>
+                  <a href="#courses" className="block hover:text-indigo-600">Courses</a>
+                  <a href="#partners" className="block hover:text-indigo-600">Partners</a>
+                  <a href="#faq" className="block hover:text-indigo-600">FAQ</a>
+                  <a href="#contact" className="block hover:text-indigo-600">Contact Us</a>
+                  <a href="/apply" className="block hover:text-indigo-600">Apply</a>
+                  {/* <a href="/interview" className="block hover:text-indigo-600">Interview</a> */}
+                  <a href="/login" className="block hover:text-indigo-600">Login</a>
+                  <a
+                    href="/register"
+                    className="block bg-indigo-700 text-white px-4 py-2 rounded-lg text-center font-bold hover:bg-indigo-800"
+                  >
+                  Apply
+                  </a>
+                </div>
+              )}
+            </header>
 
         {/* Hero Section */}
         {/* Hero Section with Parallax */}
 <section className="relative h-screen overflow-hidden text-white">
   {/* Parallax Globe Background */}
+  <div className="absolute inset-0 z-0">
+  {/* Background image */}
   <div
-    className="absolute inset-0 z-0"
+    className="w-full h-full bg-center bg-cover bg-fixed"
     style={{
       backgroundImage:
-        "url('https://images.stockcake.com/public/b/f/4/bf443878-2294-47be-98e3-e59dc838c92c_large/global-network-visualization-stockcake.jpg')",
-      backgroundSize: 'cover',
-      backgroundAttachment: 'fixed',
-      backgroundPosition: 'center',
+        "url('https://ep6ehdti8c.space.minimax.io/images/backgrounds/hero-background.webp')",
     }}
-  ></div>
+  >
+    {/* Blur and dark overlay */}
+    <div className="w-full h-full backdrop-blur-sm bg-black/20"></div>
+  </div>
+</div>
 
   {/* Hero Content */}
   <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4">
     <h1 className="text-6xl md:text-7xl font-extrabold mb-6 drop-shadow-2xl">
-      Become a Developer. Faster.
+    Tech Bootcamp Reimagined with AI at the Core.
     </h1>
     <p className="text-2xl md:text-3xl mb-10 font-medium opacity-90 max-w-3xl">
-      Live AI-powered coding bootcamps and real project collaboration.
+    Clear, professional, forward-looking.
     </p>
-    <a
+    <Link
       href="/register"
       className="bg-white text-indigo-700 px-8 py-4 text-xl rounded-full font-bold hover:bg-gray-100 transition"
     >
-      Join Now
-    </a>
+      Register
+    </Link>
   </div>
 </section>
 
@@ -261,7 +317,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 }}
               >
                 <img
-                  src={partner.image}
+                  src='data:image/jpeg;base64,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'
                   alt={partner.name}
                   className="w-48 h-48 mx-auto mb-4 rounded-full border-8 border-white object-cover"
                 />
@@ -283,7 +339,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     className="absolute inset-0 bg-fixed bg-cover bg-center z-0"
     style={{
       backgroundImage:
-        "url('https://images.stockcake.com/public/b/f/4/bf443878-2294-47be-98e3-e59dc838c92c_large/global-network-visualization-stockcake.jpg')",
+        "url('https://flatironschool.com/wp-content/uploads/2023/05/20190730FlatironSchoolChicago-30__1_2.jpg')",
     }}
   >
     <div className="absolute inset-0 bg-blue-900 opacity-80"></div>
@@ -306,7 +362,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
         {/* Footer */}
         <footer className="bg-gray-100 text-gray-700 py-6 text-center text-sm">
-          © {new Date().getFullYear()} Bootcamp Platform. All rights reserved.
+          © {new Date().getFullYear()} Cyber Tech Platform. All rights reserved.
         </footer>
       </div>
             </>
@@ -326,28 +382,29 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
 
     function CourseCard({ course }) {
-        return (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-            <img src={course.image} alt={course.name} className="w-full h-48 object-cover" />
-            <div className="p-6 flex flex-col flex-grow">
-              <h4 className="text-2xl font-semibold text-indigo-900 mb-2">{course.name}</h4>
-              <div className="flex justify-between text-gray-600 mb-4">
-                <div className="flex items-center gap-1">
-                  <User className="w-5 h-5" />
-                  <span>{course.students} students</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Clock className="w-5 h-5" />
-                  <span>{course.duration}</span>
-                </div>
+      return (
+        <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+          <img src={course.image} alt={course.name} className="w-full h-64 object-cover" />
+          <div className="p-6 flex flex-col flex-grow">
+            <h4 className="text-2xl font-semibold text-indigo-900 mb-1">{course.name}</h4>
+            <p className="text-gray-700 mb-3">{course.description}</p>
+            <div className="flex justify-between text-gray-600 mb-4 text-sm">
+              <div className="flex items-center gap-1">
+                <User className="w-4 h-4" />
+                <span>{course.students} students</span>
               </div>
-              <button
-                className="mt-auto inline-flex items-center justify-center px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition"
-                aria-label={`Enroll in ${course.name}`}
-              >
-                Enroll Now <ArrowRight className="ml-3 w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span>{course.duration}</span>
+              </div>
             </div>
+            <button
+              className="mt-auto inline-flex items-center justify-center px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition"
+              aria-label={`Enroll in ${course.name}`}
+            >
+              Learn More <ArrowRight className="ml-3 w-5 h-5" />
+            </button>
           </div>
-        );
-      }
+        </div>
+      );
+    }

@@ -4,6 +4,8 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Menu, X } from "lucide-react";
+import { useState } from 'react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -14,7 +16,9 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        goal_after_program: '',
     });
+    
 
     const submit = (e) => {
         e.preventDefault();
@@ -22,36 +26,68 @@ export default function Register() {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
+    const [menuOpen, setMenuOpen] = useState(false);
+
 
     return (
         <>
             <Head title="Student Onboarding" />
             <header className="w-full bg-white shadow-md z-30 fixed top-0 left-0">
-  <div className="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
-    {/* Logo / Brand */}
-    <div className="text-3xl font-extrabold text-indigo-700 tracking-wide">
-      <a href="/">DevLaunch</a>
-    </div>
+              <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <div className="text-3xl font-extrabold text-indigo-700 tracking-wide">
+            <a href="/">Cyber Tech</a>
+          </div>
 
-    {/* Main Menu */}
-    <nav className="hidden md:flex gap-10 text-lg font-semibold text-gray-800">
-      <a href="/" className="hover:text-indigo-600 transition">Home</a>
-      <a href="#courses" className="hover:text-indigo-600 transition">Courses</a>
-      <a href="#partners" className="hover:text-indigo-600 transition">Partners</a>
-      {/* <a href="/login" className="hover:text-indigo-600 transition">Login</a> */}
-    </nav>
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex gap-8 text-lg font-semibold text-gray-800">
+            <Link href="/" className="hover:text-indigo-600 transition">Home</Link>
+            <a href="#courses" className="hover:text-indigo-600 transition">Courses</a>
+            <a href="#partners" className="hover:text-indigo-600 transition">Partners</a>
+            <a href="#faq" className="hover:text-indigo-600 transition">FAQs</a>
+            <a href="#contact" className="hover:text-indigo-600 transition">Contact Us</a>
+            <Link href="/login" className="hover:text-indigo-600 transition">Login</Link>
+          </nav>
 
-    {/* Join Now Button */}
-    <div className="hidden md:block">
-      <a
-        href="/register"
-        className="bg-indigo-700 text-white px-6 py-3 text-lg rounded-xl font-bold hover:bg-indigo-800 transition"
-      >
-        Join Now
-      </a>
-    </div>
-  </div>
-</header>
+          {/* Join Now button (Desktop only) */}
+          <div className="hidden md:block">
+            <Link
+              href="/register"
+              className="bg-indigo-700 text-white px-5 py-2 text-lg rounded-xl font-bold hover:bg-indigo-800 transition"
+            >
+            Apply
+            </Link>
+          </div>
+
+          {/* Hamburger Icon (Mobile only) */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden text-gray-800"
+          >
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+              </div>
+
+              {/* Mobile Menu */}
+              {menuOpen && (
+                <div className="md:hidden px-6 pb-4 text-gray-800 space-y-4 text-lg font-semibold">
+                  <Link href="/" className="block hover:text-indigo-600">Home</Link>
+                  <a href="#courses" className="block hover:text-indigo-600">Courses</a>
+                  <a href="#partners" className="block hover:text-indigo-600">Partners</a>
+                  <a href="#faq" className="block hover:text-indigo-600">FAQ</a>
+                  <a href="#contact" className="block hover:text-indigo-600">Contact Us</a>
+                  <a href="/apply" className="block hover:text-indigo-600">Apply</a>
+                  {/* <a href="/interview" className="block hover:text-indigo-600">Interview</a> */}
+                  <a href="/login" className="block hover:text-indigo-600">Login</a>
+                  <Link
+                    href="/register"
+                    className="block bg-indigo-700 text-white px-4 py-2 rounded-lg text-center font-bold hover:bg-indigo-800"
+                  >
+                  Apply
+                  </Link>
+                </div>
+              )}
+            </header>
             <section
         className="w-full mt-10 min-h-screen flex items-center justify-center bg-fixed bg-cover bg-center px-4 py-12"
         style={{
@@ -95,28 +131,30 @@ export default function Register() {
 
                         {/* Preferred Course */}
                         <div>
-                            <InputLabel htmlFor="preferred_course" value="Preferred Course" className="text-white" />
-                            <select
-                                id="preferred_course"
-                                value={data.preferred_course}
-                                onChange={(e) => setData('preferred_course', e.target.value)}
-                                className="mt-1 block w-full bg-white/30 text-white border-white/30 rounded-lg px-3 py-2 focus:outline-none focus:bg-white/50"
-                                required
-                            >
-                                <option value="">-- Select --</option>
-                                <option value="Web Development">Web Development</option>
-                                <option value="Mobile App Development">Mobile App Development</option>
-                                <option value="AI & Machine Learning">AI & Machine Learning</option>
-                                <option value="Data Science">Data Science</option>
-                                <option value="UI/UX Design">UI/UX Design</option>
-                                <option value="DevOps & Cloud">DevOps & Cloud</option>
-                            </select>
-                            <InputError message={errors.preferred_course} className="mt-2 text-red-300" />
-                        </div>
+                        <InputLabel htmlFor="preferred_course" value="Courses You're Interested In" className="text-white" />
+                        <select
+  id="preferred_course"
+  value={data.preferred_course}
+  onChange={(e) => setData('preferred_course', e.target.value)}
+  className="mt-1 block w-full bg-white/30 text-white border-white/30 rounded-lg px-3 py-2 focus:outline-none focus:bg-white/50"
+  required
+>
+  <option value="" >-- Select a course --</option>
+  <option value="Data Science and AI" className="bg-white text-indigo-900">Data Science and AI</option>
+  <option value="Full Stack Software Development" className="bg-white text-indigo-900">Full Stack Software Development</option>
+  <option value="Frontend Development" className="bg-white text-indigo-900">Frontend Development</option>
+  <option value="Backend Development and APIs" className="bg-white text-indigo-900">Backend Development and APIs</option>
+  <option value="Python Programming" className="bg-white text-indigo-900">Python Programming</option>
+  <option value="Machine Learning" className="bg-white text-indigo-900">Machine Learning</option>
+  <option value="Programming Fundamentals" className="bg-white text-indigo-900">Programming Fundamentals</option>
+  <option value="Coding for Kids and Teens" className="bg-white text-indigo-900">Coding for Kids and Teens</option>
+</select>
+                        <InputError message={errors.preferred_course} className="mt-2 text-red-300" />
+                    </div>
 
                         {/* Entry Level */}
                         <div>
-                            <InputLabel htmlFor="entry_level" value="Entry Level" className="text-white" />
+                            <InputLabel htmlFor="entry_level" value="Education Level" className="text-white" />
                             <select
                                 id="entry_level"
                                 value={data.entry_level}
@@ -125,9 +163,9 @@ export default function Register() {
                                 required
                             >
                                 <option value="">-- Select --</option>
-                                <option value="Beginner">Beginner</option>
-                                <option value="Intermediate">Intermediate</option>
-                                <option value="Advanced">Advanced</option>
+                                <option value="5-12" className="bg-white text-indigo-900">Grade 5-12</option>
+                                <option value="Univ" className="bg-white text-indigo-900">Higher Institution Student</option>
+                                <option value="job" className="bg-white text-indigo-900">On Job</option>
                             </select>
                             <InputError message={errors.entry_level} className="mt-2 text-red-300" />
                         </div>
